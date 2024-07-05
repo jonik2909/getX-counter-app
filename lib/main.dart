@@ -1,7 +1,10 @@
+import 'package:countergetx/get/counter_get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(GetMaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -22,6 +25,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Controller c = Get.put(Controller());
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -44,15 +49,15 @@ class HomePage extends StatelessWidget {
                   Icons.remove,
                   color: Colors.white,
                 ),
-                onPressed: () {},
+                onPressed: () => c.decrement(),
               ),
               const SizedBox(
                 width: 20,
               ),
-              Text(
-                '1',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
+              Obx(() => Text(
+                    "${c.count}",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  )),
               const SizedBox(
                 width: 20,
               ),
@@ -64,7 +69,7 @@ class HomePage extends StatelessWidget {
                   Icons.add,
                   color: Colors.white,
                 ),
-                onPressed: () {},
+                onPressed: () => c.increment(),
               ),
             ],
           ),
